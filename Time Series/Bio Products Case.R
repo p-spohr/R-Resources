@@ -1,5 +1,7 @@
-#### Bio Product Sales in Germany ####
-## using linear regression and times series
+#### Bio Product Sales in Germany Case Study ####
+# Jan-Alexander Patzke
+# Zeitreihenanalyse
+# HTW Berlin
 
 ## download data
 bio.food <- read_xlsx("Bio Products.xlsx")
