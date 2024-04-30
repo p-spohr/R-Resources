@@ -41,6 +41,10 @@ linreg # model
 linreg$coefficients # get coefficients
 beta.0 <- linreg$coefficients[1] # intercept
 beta.1 <- linreg$coefficients[2] # time coefficient
+#### Bio Products Case Study ####
+# Jan-Alexander Patzke
+# Zeitreihenanalyse
+# HTW Berlin
 
 ## Displaced time index
 bio.food.centered.ts <- ts(bio.food$sales, start = -9.5, frequency = 1)

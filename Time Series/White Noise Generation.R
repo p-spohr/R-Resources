@@ -1,3 +1,8 @@
+#### Generate White Noise ####
+# Jan-Alexander Patzke
+# Zeitreihenanalyse
+# HTW Berlin
+
 set.seed(4567)
 wn1 <- rnorm(500, 0, 1)
 wn2 <- rnorm(500, 0, 1)
