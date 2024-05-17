@@ -1,52 +1,85 @@
-#### Fallacy Of Time Diversification ####
+#### Hidden Markov Chain Model ####
 # By Prof Dr Hillebrand
 # Stochastische Prozesse
 # HTW Berlin
 
-## Daten einlesen: S&P500
-daten <- read.csv("SP500.csv", header=T, sep=";", dec=",")
+## packages herunterladen
 
-S <- daten$RI #Performance Index inkl. Dividenden als Grundlage der Untersuchung
-tS <- as.Date(paste(daten$Datum, "01", sep="/"), "%Y/%m/%d") #Datum fuer R verstaendlich machen
-t <- tS[2:length(tS)]
-logS <- log(S)
-r <- diff(logS)
-n <- length(r);n
-plot(tS, logS, type="l")#
-plot(t, r, type="l")
-summary(r)*100
+install.packages("depmixS4")
+library(depmixS4)
 
-## Histogramm 
-h<-hist(r,c(-0.9,seq(-0.4,0.4,0.01),0.9));h$counts
+help(package = "depmixS4")
 
-## Fallacy of time diversification, ACHTUNG: ueberlappende Zeitraeume
-y <- c(1,2,5,10,15,20) #Vektor der Horizonte, die man betrachten moechte
 
-## Annualisieren
-ann <- FALSE #je nachdem, ob man annualisieren möchte oder nicht
-ann <- TRUE
+## Daten einlesen: DAX
+daten <- read.csv("DAX.csv", header=T, sep=";", dec=",")
+head(daten)
+daten$Datum <- as.Date(daten$Datum, format = "%d.%m.%Y")
+class(daten$Datum)
 
-## Schleife ueber alle Horizonte in Jahren, die betrachtet werden
-for (j in y){
-  if (ann){
-    r <- diff(logS,lag=12*j)/j #annualisierte log. Renditen
-  }
-  else {  
-    r <- diff(logS,lag=12*j) #nicht annualisierte log. Renditen
-  }
-  if (j == 1){
-    liste <- list(r)
-  }
-  else
-  {
-    liste <- c(liste,list(r))
-  }
+## Zeitindexmenge
+t <- daten$Datum
+r <- diff(log(daten$P))
+
+train_zeitraum <- which((t > "1987-12-31") & (t < "2011-01-01"))
+test_zeitraum <- which( t >= "2011-01-01")
+?which
+
+rtest <- r[test_zeitraum]
+ttest <- t[test_zeitraum]
+rtrain <- r[train_zeitraum]
+ttrain <- t[train_zeitraum]
+
+head(rtest)
+head(rtrain)
+head(ttest)
+head(ttrain)
+
+set.seed(1)
+
+?depmix
+
+prob <- function (x) {x / sum(x)}
+
+hmm <- depmix(response = rtrain ~ 1, 
+              data = data.frame(rtrain = rtrain),
+              nstates = 2,
+              family = gaussian(),
+              trstart = apply(matrix(runif(4), 2) , 1, prob),
+              respstart = matrix(c(0, sd(rtrain), 0, sd(rtrain)), 2),
+              instart = prob(runif(2))
+              )
+hmm
+
+# Modell fitten, Baum-Welch-Algorithmus = EM-Algorithmus
+
+hmmfit <- fit(hmm, verbose = FALSE)
+summary(hmmfit)
+
+
+post_probs <- posterior(hmmfit, type = "viterbi")
+plot(ttrain, cumsum(rtrain), type = "l", xlab = "Jahr")
+points(ttrain, (post_probs$state - 1) * 2, col = "blue", type = "l")
+
+
+n <- length(train_zeitraum)
+zustand <- rep(0, n)
+if (getmodel(hmmfit, which = "response")@parameters$coefficients 
+    > getmodel(hmmfit, which = "response", 2)@parameters$coefficients ) {
+  zustand[post_probs$state == 1] <- 1
+} else{
+  zustand[post_probs$state == 2] <- 2
 }
 
-names(liste) <- y
-bp <- boxplot(liste,xlab="Horizont in Jahren")
+summary(rtrain[zustand == 1])
+summary((rtrain[zustand == 0]))
 
-sqrt(20)/sqrt(10) #von 10 nach 20 muesste eigtentlich 1,414fach weiter sein, nicht annualsiert! Ist aber weniger.
-bp$stats #Spannweite nicht so viel mehr bei 20 im Vgl. zu 10
-sd(liste$"20")/sd(liste$"10") #Vola-Verhaeltnis auch etwas weniger als erwartet
+getmodel(hmmfit, which = "response")@parameters$coefficients
+getmodel(hmmfit, which = "response", 2)@parameters$coefficients
+
+sd(rtrain[zustand == 1])
+sd(rtrain[zustand == 0])
+
+plot(ttrain, cumsum(rtrain * zustand), type = "l")
+points(ttrain, cumsum(rtrain), type = "l", col = "blue")
 
