@@ -49,3 +49,36 @@ plot(sigma , C, type = "p", pch = 20, xlab = "sd", ylab = "cov")
 
 ?append
 ?plot
+?seq
+
+n <- 10000
+t <- seq(1, n, 1)
+Z <- rnorm(n, mean = 10, sd = 5)
+cov(t, Z)
+cor(t, Z)
+
+tz <- t * Z
+
+mean(tz) - mean(t) * mean(Z) # covariance of the t index and Z random variable
+
+n <- seq(1, 10000, 1)
+WN <- rnorm(n)
+MA3 <- c()
+for (i in n) {
+  
+  MA3[i] <- 1/3 * (WN[i-1] + WN[i] + WN[i+1])
+  
+}
+is.na(MA3)
+MA3 <- MA3[!is.na(MA3)]
+length(MA3)
+cov(MA3, MA3) # covariance is 1/3 of the sd when tau is 0
+sd(WN) / 3
+
+cov(MA3[1:(length(MA3)-1)], MA3[(1+1):length(MA3)]) # covariance is 2/9 times sd when tau is 1
+sd(WN) * (2/9)
+
+cov(MA3[1:(length(MA3)-2)], MA3[(1+2):length(MA3)]) # covariance is 1/9 times sd when tau is 2
+sd(WN) / 9
+
+
