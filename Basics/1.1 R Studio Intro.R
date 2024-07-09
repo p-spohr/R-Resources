@@ -63,7 +63,7 @@
 # Jump from WOW to the next WOW!
 # Jump from WOW to the next WOW!
 
-## ALT + CTRL + K => move and add next word to selection
+## CTRL + ALT + K => move and add next word to selection
 ## !!!needs to be added manually: Tools->Modify Keyboard Shortcuts
 ## Name: Find and Add Next
 # Jump from SUPER to the next SUPER!

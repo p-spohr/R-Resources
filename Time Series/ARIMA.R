@@ -37,13 +37,15 @@ x <- rnorm(150) # erzeuge White Noise (150 iid N(0,1)-Variablen)
 sarima(xdata=arima_1, p=3, d=0, q=0, details=F)
 sarima(xdata=arima_2, p=3, d=0, q=3, details=F)
 
-
 ?matrix
-M <- matrix(c(1,2,3,4,5,6,7,8,9), nrow= 3, ncol = 3, byrow = TRUE)
 I <- diag(1, 3, 3)
-solve(M)
-M %*% I
 
+M <- matrix(c(1,2,3,5,5,6,7,8,9), nrow= 3, ncol = 3, byrow = TRUE)
+M_s <- solve(M)
+round(M %*% M_s, 3)
+?round
 A <- matrix(1:4, 2, 2, byrow= TRUE)
-solve(A)
+A_s <- solve(A)
+round(A %*% A_s, 3)
+
 
