@@ -1,8 +1,18 @@
 # Difference filter
 
-wn <- rnorm(10000)
+n <- 5000
+wn <- rnorm(n)
 mean(wn)
 var(wn)
+
+t <- seq(1, n, by=1)
+plot(t, wn, type = "l")
+
+rw <- cumsum(wn)
+plot(t, rw, type = "l")
+mean(rw)
+var(rw)
+rw[5000]
 
 
 # autocovariance
@@ -53,3 +63,6 @@ ts.plot(diff(twn,1))
 mean(twn)
 var(twn)
 mean(diff(twn, 1))
+
+
+

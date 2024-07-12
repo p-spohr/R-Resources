@@ -79,3 +79,25 @@ autocov(wn_2_ma_3, 1) # autocov with tau 1 is 2/9 the variance of wn
 autocov(wn_2_ma_3, 2) # autocov with tau 1 is 1/9 the variance of wn
 var(wn_2) * 1/9
 autocov(wn_2_ma_3, 3) # autocov with tau 1 is 1/9 the variance of wn
+
+wn_3 <- rnorm(5000)
+rw_3 <- cumsum(wn_3)
+ma_3 <- ma(rw_3, 3)
+ma_3 <- ma_3[!is.na(ma_3)]
+plot(ma_3, type = "l")
+
+ma_10 <- ma(rw_3, 10)
+ma_10 <- ma_10[!is.na(ma_10)]
+plot(ma_10, type = "l")
+
+ma_20 <- ma(rw_3, 20)
+ma_20 <- ma_20[!is.na(ma_20)]
+plot(ma_20, type = "l")
+
+ma_40 <- ma(rw_3, 40)
+ma_40 <- ma_40[!is.na(ma_40)]
+plot(ma_40, type = "l")
+
+ma_100 <- ma(rw_3, 100)
+ma_100 <- ma_100[!is.na(ma_100)]
+plot(ma_100, type = "l")
