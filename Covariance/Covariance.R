@@ -82,3 +82,36 @@ cov(MA3[1:(length(MA3)-2)], MA3[(1+2):length(MA3)]) # covariance is 1/9 times sd
 sd(WN) / 9
 
 
+M <- (0:50) ** 4
+plot(M, type = 'l')
+acf(M)
+pacf(M)
+
+
+T_1 <- 0:50
+plot(T_1, type = 'l')
+acf(T_1)
+pacf(T_1)
+
+T_cs <- cumsum(0:50)
+plot(T_cs, type = 'l')
+acf(T_cs)
+pacf(T_cs)
+
+
+ar_5 <- arima.sim(list(ar = c(0.2, -0.3, 0.1, -0.5, 0.5)), 1000)
+plot(ar_5, type = 'l')
+acf(ar_5)
+pacf(ar_5) # pacf can roughly show the phis of an AR Process
+
+
+ma_5 <- arima.sim(list(ma = c(0.2, -0.3, 0.1, -0.5, 0.5)), 1000)
+plot(ma_5, type = 'l')
+acf(ma_5) # ma process always stationary => as lag increases the ACF goes to zero
+pacf(ma_5) # pacf can roughly show the phis of an AR Process
+
+
+arma_5_diff <- ar_5 - ma_5
+plot(arma_5_diff, type = 'l')
+acf(arma_5_diff)
+pacf(arma_5_diff)
