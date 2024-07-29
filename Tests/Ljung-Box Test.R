@@ -3,10 +3,10 @@
 #### white noise test ####
 ?Box.test
 
-n <- 10
+n <- 10000
 wn <- rnorm(n, 0, 1)
 
-# large p-values => white noise is independently distributed
+# large p-values => white noise is independently distributed, true for white noise
 for (i in 1:10) {
   test <- Box.test(wn, i, type = 'Ljung-Box')
   print(paste0("Lag ", i, ": ", round(test$p.value, 4)))
