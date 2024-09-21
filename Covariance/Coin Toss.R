@@ -34,3 +34,16 @@ var(coin_toss)
 # Erwarungswert von rw
 ((1 + 1) * 0.5 - 1) * 1000
 mean(coin_toss) * 1000
+
+x1_mean <- 5
+x1_sd <- 1
+X1_1 <- x1_mean + rnorm(1000, x1_mean, x1_sd)
+X1_2 <- x1_mean + rnorm(1000, 0, x1_sd)
+X1_3 <- rnorm(1000, x1_mean, x1_sd)
+
+mean(X1_1)
+mean(X1_2)
+mean(X1_3)
+
+
+
