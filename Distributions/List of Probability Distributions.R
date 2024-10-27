@@ -57,4 +57,25 @@
 ?dcauchy
 
 # beta distribution
-?dbeta.
+?dbeta
+
+
+dnorm(0)
+pnorm(0)
+qnorm(0.5)
+
+pnorm(4) - pnorm(-4)
+
+dexp(2, rate = 1)
+pexp(c(1,2,3), rate = 1)
+
+plot(seq(0,5,0.1), dexp(seq(0,5,0.1), 1))
+
+plot(seq(0,5,0.1), pexp(seq(0,5,0.1), 1))
+abline(v = 2)
+pexp(2, 1)
+
+
+
+
+
