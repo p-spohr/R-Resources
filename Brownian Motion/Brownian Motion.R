@@ -4,9 +4,18 @@
 mu <- 0
 delta <- 0.001
 sigma <- 1
-t <- seq(0, 1, delta)
+t <- seq(0, 100, delta)
 
 B <- rnorm(length(t), 0, sqrt(delta)) # delta is varianz, but needs to be standard deviation
+B1 <- rnorm(length(t), 0, sqrt(delta)) # delta is varianz, but needs to be standard deviation
+
+diff(B) %*% diff(B1)
+
+B %*% B1
+
+mean(B)
+var(B)
+var(diff(B))
 
 X <- mu * delta + sigma * B
 
@@ -14,7 +23,7 @@ X_t <- cumsum(X)
 
 plot(t, X_t, type = 'l')
 
-mean(X_t)
+\mean(X_t)
 var(X_t)
 
 mean_array <- vector('numeric')
