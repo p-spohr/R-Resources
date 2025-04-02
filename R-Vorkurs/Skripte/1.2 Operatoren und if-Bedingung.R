@@ -40,6 +40,7 @@ x <- 2 # üblich
 y = 3 # nicht üblich aber erlaubt
 # mit ';' kann man mehrere Befehle in einer Zeile ausführen
 x ; y
+name <- 'Pat'
 
 x + y
 
@@ -56,8 +57,10 @@ name <- "Tim" # besser
 satz <- "Let's go coding!"
 
 # use '_' or '.' um worte zu kombinieren
+customername <- 'Tim'
 customer_name <- "Tim"
 customer.name <- "Tim"
+.customer <- 'a'
 
 # keine Zahlen vorne erlaubt
 # 5_year_returns <- 0.2 ERROR
@@ -92,16 +95,26 @@ year_returns_5 <- 0.2 # works!
 # if-Bedingung ####
 
 hungrig <- T
-
+!hungrig
 if (hungrig) {
   print('Ich habe Hunger!')
 }
 
-bargeld <- 20
+bargeld <- 5
 
 if (bargeld > 10) {
   print('Ich habe genug Bargeld dabei!')
+} else if (bargeld <= 10) {
+  print('Ich habe nicht genug Bargeld!')
 }
+
+if (bargeld > 10) {
+  print('Ich habe genug Bargeld dabei!')
+} else {
+  print('Ich habe nicht genug Bargeld!')
+}
+
+bargeld <- 20
 
 if (hungrig && bargeld > 10) {
   print('Ich kaufe einen Döner!')
@@ -111,6 +124,12 @@ if (hungrig && bargeld > 10) {
   print('Ich habe nicht genug Bargeld dabei!')
 }
 
+passwort <- 'htwberlin123'
+if (passwort != 'htwberlin123') {
+  print('Falsches Passwort!')
+} else {
+  print('Richtiges Passwort!')
+}
 
 
 
