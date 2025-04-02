@@ -14,7 +14,7 @@ sum(vect)
 cumsum(vect)
 
 # A5
-diff(vect)
+diff(vect, lag = 1)
 
 # A6
 abs(vect)
@@ -27,6 +27,7 @@ sd(vect)
 
 # A9
 as.character(vect)
+is.character('1')
 
 # A10
 append(vect, Inf)
@@ -35,5 +36,6 @@ append(vect, Inf)
 length(vect)
 
 # A12
-matrix(vect, nrow = 3, ncol = 4, byrow = TRUE)
+vect
+matrix(vect, nrow = 3, ncol = 4, byrow = FALSE)
 

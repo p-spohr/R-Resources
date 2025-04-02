@@ -3,9 +3,14 @@
 rm(list = ls())
 
 # Vektoren ####
-c(1,2,3)
+V <- as.character(c(1,2,3))
+class(V)
 class(c(1,2,3))
+
+1:5
+
 1:3 == (1:3)
+
 c(1,5,3) == 1:3
 
 c(1,2,3) + 2
@@ -26,30 +31,53 @@ c(1,1,1) / c(1,1,1)
 c(1,1,1) * c(1,1,1)
 c(1,1,1) + c(1,1) # ERROR length is not the same
 
-c(1,2,"3")
+is.character(c(1,2,"3"))
+
+as.numeric(c(1,2,"3")) * 2
+
 class(c(1,2,"3")) # !!!VORSICHTIG!!!
 
 neu_vect <- vector('numeric') # oder 'character
+
+?append
+append(neu_vect, c(-1, 10, 7))
+
 vect <- c(1,2,3)
 vect <- c(vect, 4:6)
 vect
 length(vect)
 
 # erzeugen Sie Vektoren
+1:5
+?seq
 seq(1,5,1)
-rep(0, 5,)
+
+rep(-1.3, 10)
 
 # werfen Sie einen Würfel
-runif(1)
-round(floor(runif(5, min = 1, max = 6)))
+# Gleichverteilung
+?runif
 
+# Random, Zufallsvariablen
+runif(10, min = -10, max = 10)
+
+round(runif(100, min = 1, max = 6))
+
+round(floor(runif(5, min = 1, max = 6)))
+rep(1/6, 6)
 sample(seq(1,6), 5, replace = TRUE, prob = rep(1/6, 6))
 
+namen <- c('Jim', 'Thorsten', 'Tina', 'Philip')
+sample(namen, 30, replace = TRUE, prob = c(0.45, 0.25, 0.25, 0.05))
+
 # Vektor Indexieren
-vect2 <- seq(-5, 5, 0.5)
+vect2 <- seq(-5, 5, 1)
+length(vect2)
+vect2[c(1,5,11)]
 range(vect2)
-vect2[1:2]
-vect2[-1:-18]
+
+vect2[1:1]
+vect2[-1:-5]
 
 names <- c('Thorsten', 'Helena', 'Kris', 'Franky')
 names[c(1,4)]
@@ -74,21 +102,29 @@ append(1:3, 4, after = 0) # add 4 to beginning of list
 
 # Matrix ####
 A <- matrix(5, nrow = 3, ncol = 3) ; A
+?matrix
 B <- matrix(c(1,2,3), nrow = 3, ncol = 3) ; B
 C <- matrix(c(1,2,3), nrow = 3, ncol = 3, byrow = TRUE) ; C
+
 d <- seq(1,9)
 D <- matrix(d, nrow = 3, ncol = 3, byrow = TRUE) ; D
 
+A
 cbind(A, c(1,2,3))
 rbind(A, c(1,2,3))
+?rbind
 
 # matrix operations
 N <- matrix(1, nrow=2, ncol = 2) ; N
 N + N
 N - N
 N / N
+
 N * N # Elementwise multiplication
+
+
 N %*% N # Matrix multiplication
+
 N * N == N%*%N # ALLE FALSCH
 
 N + 2 # scalar operations work just like vectors
@@ -108,6 +144,23 @@ solve(D, ds)
 
 # Schleife ####
 
+
+vect_zahl <- 1:10
+vect_zahl * 2
+vect_verdopp <- vector('numeric')
+
+for (n in vect_zahl) {
+  vect_verdopp <- append(vect_verdopp, n * 2)
+}
+vect_verdopp
+
+i <- 1
+for (n in vect_zahl) {
+  vect_verdopp[i] <- n * 2
+  i <- i + 1
+}
+vect_verdopp
+
 names2 <- append(names, c('Abdul', 'Marry', 'Zoya'))
 names2
 
@@ -115,8 +168,14 @@ for (name in names2) {
   print(name)
 }
 
+j <- 1
+for (j in 1:length(names2)) {
+  print(names2[j])
+}
+
 for (name in names2) {
-  begruessung = paste0(name, ' sagt Hallo!')
+  begruessung <- paste0(name, ' sagt Hallo!')
+  begruessung
   print(begruessung)
 }
 
@@ -200,9 +259,11 @@ breadworld.salaries[5]
 bw_df <- data.frame(name = breadworld.names, salary = breadworld.salaries)
 bw_df
 rownames(bw_df) <- seq(1,nrow(bw_df))
+
 nrow(bw_df)
 ncol(bw_df)
-bw_df$age = floor(runif(5, min = 20, max = 70))
+
+bw_df$age <- floor(runif(nrow(bw_df), min = 20, max = 70))
 bw_df
 
 colnames(bw_df) <- c('Name', 'Salary', 'Age')
