@@ -7,10 +7,13 @@ library(help = "base")
 # Ausdrucken und Formatierung
 print('Hi!')
 name <- 'Patrick'
-paste('Ich bin', name, sep = ' ')
-paste(name, 'hat', 2, 'Schwestern.')
 
-paste0('H', 'T', 'W')
+paste('Ich bin', name, sep = ' ')
+
+schwester_zahl <- 2
+paste(name, 'hat', schwester_zahl, 'Brüdern')
+
+print(paste0('H', 'T', 'W'))
 
 abc <- c('a', 'b', 'c')
 paste(abc)
@@ -19,11 +22,18 @@ paste(abc, collapse = '')
 toupper(name)
 tolower(name)
 
+abc[]
+
 # Zugriff auf die Buchstaben mit strsplit
-unlist(strsplit(name, split = ''))
+name
+strsplit(name, split = '')[[1]][1]
+
+unlist(strsplit(name, split = ''))[1]
+
 ?unlist
 lastname <- unlist(strsplit(name, split = ''))
 lastname[-c(1, length(lastname))]
+lastname[]
 
 email <- 'm.mueller@htwberlin.org'
 strsplit(email, split = '@')
@@ -58,8 +68,11 @@ sqrt(5)
 sum(c(1,2,3))
 sum(c(T, T, T, F))
 
+T * 4
+F * 4
+
 # kumulierte Summe
-cumsum(c(1,2,3))
+cumsum(c(1,2,3,10))
 
 # Mittelwert
 mean(c(1,2,3))
